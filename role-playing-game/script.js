@@ -80,7 +80,7 @@ function buyHealth() {
     
         goldText.innerText = gold;
         healthText.innerText = health;
-    }
+    } else {}
 }
 function buyWeapon() {}
 function fightSlime() {}
