@@ -35,7 +35,7 @@ const locations = [
     { name: "store", "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Go to town square"], "button functions": [buyHealth, buyWeapon, goTown], text: "You enter the store." },
     { name: "cave", "button text": ["Fight slime", "Fight fanged beast", "Go to town square"], "button functions": [fightSlime, fightBeast, goTown], text: "You enter the cave. You see some monsters." },
     { name: "fight", "button text": ["Attack", "Dodge", "Run"], "button functions": [attack, dodge, goTown], text: "You are fighting a monster." },
-    { name: "kill monster", "button text": ["Go to town square", "Go to town square", "Go to town square"], "button functions": [goTown, goTown, goTown], text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.' },
+    { name: "kill monster", "button text": ["Go to town square", "Go to town square", "Go to town square"], "button functions": [goTown, goTown, easterEgg], text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.' },
     { name: "lose", "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], "button functions": [restart,restart,restart], text: "You die. ☠️" },
     { name: "win", "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], "button functions": [restart,restart,restart], text: "You defeat the dragon! YOU WIN THE GAME! 🎉" },
     { name: "easter egg", "button text": ["2", "8", "Go to town square?"], "button functions": [pickTwo, pickEight, goTown], text: ""}
@@ -229,6 +229,23 @@ function pick(guess) {
     }
 
     text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+
+    for (let i = 0; i < 10; i++) {
+        text.innerText += numbers[i] + "\n";
+    }
+
+    if (numbers.includes(guess)) {
+        text.innerText += "Right! You win 20 gold!";
+        gold += 20;
+        goldText.innerText = gold;
+    } else {
+        text.innerText += "Wrong! You lose 10 health!";
+        health -= 10;
+        healthText.innerText = health;
+        if (health <= 0) {
+            lose();
+        }
+    }
 }
 
 function pickTwo() {
