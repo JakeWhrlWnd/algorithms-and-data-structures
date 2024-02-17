@@ -24,14 +24,14 @@ function addEntry() {
     <input type="text" placeholder="Name" id="${entryDropdown.value}-${entryNumber}-name">
     <label for="${entryDropdown.value}-${entryNumber}-calories">Entry ${entryNumber} Calories</label>
     <input type="number" min="0" placeholder="Calories" id="${entryDropdown.value}-${entryNumber}-calories">`;
-    targetInputContainer.insertAdjacentElement('beforeend', HTMLString);
+    targetInputContainer.insertAdjacentHTML('beforeend', HTMLString);
 }
 
 function calculateCalories(e) {
     e.preventDefault();
     isError = false;
 
-    const breakfastNumberInputs = document.querySelectorAll('#breakfast input=[type=number]');
+    const breakfastNumberInputs = document.querySelectorAll('#breakfast input[type=number]');
     const lunchNumberInputs = document.querySelectorAll('#lunch input[type=number]');
     const dinnerNumberInputs = document.querySelectorAll('#dinner input[type=number]');
     const snacksNumberInputs = document.querySelectorAll('#snacks input[type=number]');
