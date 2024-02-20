@@ -101,12 +101,31 @@ let userData = {
     songCurrentTime: 0,
 };
 
+//Create the functionality to display the songs
+const playSong = (id) => {
+    const song = userData?.songs.find((song) => song.id === id);
+
+    audio.src = song.src;
+    audio.src = song.title;
+
+    if (userData?.currentSong === null || userData?.currentSong.id !== song.id) {
+        audio.currentTime = 0;
+    } else {
+        audio.currentTime = userData?.songCurrentTime;
+    }
+
+    userData.currentSong = song;
+
+    playButton.classList.add("playing");
+    audio.play();
+};
+
 //Function to display the songs in the UI - using an arrow function
 const renderSongs = (arr) => {
     const songsHTML = arr.map((song) => {
         return `
             <li id="song-${song.id}" class="playlist-song">
-                <button class="playlist-song-info">
+                <button class="playlist-song-info" onclick="playSong(${song.id})">
                     <span class="playlist-song-title">${song.title}</span>
                     <span class="playlist-song-artist">${song.artist}</span>
                     <span class="playlist-song-duration">${song.duration}</span>
@@ -121,6 +140,24 @@ const renderSongs = (arr) => {
     playlistSongs.innerHTML = songsHTML;
 };
 
-userData?.songs.sort((a, b) => {});
+playButton.addEventListener('click', () => {
+    if (userData?.currentSong === null) {
+        playSong(userData?.songs[0].id);        
+    } else {
+        playSong(userData?.currentSong.id);
+    }
+});
+
+userData?.songs.sort((a, b) => {
+    if (a.title < b.title) {
+        return -1;
+    }
+
+    if (a.title > b.title) {
+        return 1;
+    }
+
+    return 0;
+});
 
 renderSongs(userData?.songs);
