@@ -195,7 +195,9 @@ const renderSongs = (arr) => {
 };
 
 const setPlayButtonAccessibleText = () => {
-    const song = userData?.curretSong || userData?.songs[0];
+    const song = userData?.currentSong || userData?.songs[0];
+
+    playButton.setAttribute("aria-label", song?.title ? `Play ${song.title}` : "Play");
 };
 
 const getCurrentSongIndex = () => userData?.songs.indexOf(userData?.currentSong);
